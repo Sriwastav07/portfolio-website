@@ -34,7 +34,7 @@ export default function Contact() {
     setStatus('loading');
     setErrorMsg('');
     try {
-      const res = await axios.post('/api/contact', form);
+      const res = await axios.post('https://portfolio-website-rs7d.onrender.com/api/contact', form);
       if (res.data.success) { setStatus('success'); setForm(INITIAL); }
       else throw new Error(res.data.error || 'Something went wrong.');
     } catch (err) {
