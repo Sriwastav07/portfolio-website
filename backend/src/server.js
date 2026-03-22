@@ -11,7 +11,12 @@ dotenv.config();
 const app  = express();
 const PORT = process.env.PORT || 5000;
 
-app.use(cors({ origin: process.env.FRONTEND_URL || '*', methods: ['GET','POST'] }));
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://portfolio-website-psi-amber-86.vercel.app"
+];
+
+app.use(cors({ origin: allowedOrigins, methods: ['GET','POST'], credentials: true }));
 app.use(express.json());
 
 app.get('/api/health', (_, res) => res.json({ status: 'ok', version: '3.0' }));
