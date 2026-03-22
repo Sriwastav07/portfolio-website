@@ -79,7 +79,7 @@ export default function AIChatbot() {
     setMessages((m) => [...m, { role: 'user', content: userMsg }]);
     setLoading(true);
     try {
-      const res = await axios.post('/api/chat', { message: userMsg });
+      const res = await axios.post('https://portfolio-website-rs7d.onrender.com/api/chat', { message: userMsg });
       setMessages((m) => [...m, { role: 'assistant', content: res.data.reply }]);
     } catch {
       setMessages((m) => [...m, { role: 'assistant', content: "Sorry, I couldn't connect right now. Please try again!" }]);
