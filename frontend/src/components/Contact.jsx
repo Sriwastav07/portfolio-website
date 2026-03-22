@@ -4,6 +4,7 @@ import { Send, CheckCircle, AlertCircle, Github, Linkedin, Mail, MapPin } from '
 import axios from 'axios';
 import { profile } from '../data';
 import ScrollReveal from './ScrollReveal';
+import emailjs from "@emailjs/browser";
 
 const INITIAL = { name: '', email: '', message: '' };
 
@@ -30,18 +31,38 @@ export default function Contact() {
   const handleChange = (e) => setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setStatus('loading');
-    setErrorMsg('');
-    try {
-      const res = await axios.post('https://portfolio-website-rs7d.onrender.com/api/contact', form);
-      if (res.data.success) { setStatus('success'); setForm(INITIAL); }
-      else throw new Error(res.data.error || 'Something went wrong.');
-    } catch (err) {
-      setStatus('error');
-      setErrorMsg(err.response?.data?.error || err.message || 'Failed to send. Please try again.');
-    }
-  };
+  e.preventDefault();
+  setStatus('loading');
+  setErrorMsg('');
+
+  try {
+
+    // 1️⃣ Send email using EmailJS
+    await emailjs.send(
+      "service_v1u5eof",
+      "template_ujfwxn8",
+      {
+        name: form.name,
+        email: form.email,
+        message: form.message,
+      },
+      "t9zv-2-Fq9X0YBBYy"
+    );
+
+    // 2️⃣ Save message to database (optional)
+    await axios.post(
+      "https://portfolio-website-rs7d.onrender.com/api/contact",
+      form
+    );
+
+    setStatus('success');
+    setForm(INITIAL);
+
+  } catch (err) {
+    setStatus('error');
+    setErrorMsg(err.message || "Failed to send message.");
+  }
+};
 
   return (
     <section id="contact" style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}>

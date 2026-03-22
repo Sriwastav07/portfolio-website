@@ -1,6 +1,6 @@
 import express from 'express';
 import Contact from '../models/Contact.js';
-import nodemailer from "nodemailer";
+import emailjs from "@emailjs/browser";
 
 const router = express.Router();
 
@@ -16,29 +16,6 @@ router.post('/', async (req, res) => {
 
     const contact = new Contact({ name, email, message });
     await contact.save();
-
-    const transporter = nodemailer.createTransport({
-      host: "smtp.gmail.com",
-      port: 587,
-      secure: false,
-      family: 4,
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS
-      }
-    });
-
-    // ✅ Email to YOU
-    await transporter.sendMail({
-      from: process.env.EMAIL_USER,
-      to: process.env.EMAIL_USER,
-      subject: "New Portfolio Contact Message",
-      text: `
-          Name: ${name}
-          Email: ${email}
-          Message: ${message}
-        `
-      });
 
     res.status(201).json({ success: true, message: 'Message received! I\'ll get back to you soon.' });
   } catch (err) {
