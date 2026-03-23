@@ -50,10 +50,10 @@ export default function Contact() {
     );
 
     // 2️⃣ Save message to database (optional)
-    await axios.post(
-      "https://portfolio-website-rs7d.onrender.com/api/contact",
-      form
-    );
+    // await axios.post(
+    //   "https://portfolio-website-rs7d.onrender.com/api/contact",
+    //   form
+    // );
 
     setStatus('success');
     setForm(INITIAL);
