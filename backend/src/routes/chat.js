@@ -34,7 +34,7 @@ PROJECTS:
    GitHub: https://github.com/Sriwastav07/Weather-report-clustering
 
 CONTACT:
-Email: anishasriwatav07@gmail.com
+Email: anishasriwastav07@gmail.com
 GitHub: https://github.com/sriwastav07
 LinkedIn: https://linkedin.com/in/anisha172
 

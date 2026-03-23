@@ -7,7 +7,9 @@ const router = express.Router();
 // POST /api/contact — save a new contact message
 router.post('/', async (req, res) => {
   try {
-    const { name, email, message } = req.body;
+    const name = req.body.name?.trim();
+    const email = req.body.email?.trim();
+    const message = req.body.message?.trim();
 
     // Basic presence validation
     if (!name || !email || !message) {
